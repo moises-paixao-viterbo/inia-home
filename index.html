@@ -28,13 +28,25 @@
             text-decoration: none;
             text-align: center;
             cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
         }
         nav a:hover {
             background-color: #ddd;
             color: black;
         }
+        nav a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
         .content {
             padding: 20px;
+            transition: opacity 0.5s;
+        }
+        .content.fade-out {
+            opacity: 0;
+        }
+        .content.fade-in {
+            opacity: 1;
         }
         footer {
             background-color: #333;
@@ -54,7 +66,27 @@
                 servicos: '<h2>Serviços</h2><p>Detalhes dos serviços oferecidos.</p>',
                 contato: '<h2>Contato</h2><p>Formas de entrar em contato.</p>'
             };
-            document.getElementById('main-content').innerHTML = sections[section];
+            
+            // Adicionar efeito de fade-out
+            const contentDiv = document.getElementById('main-content');
+            contentDiv.classList.add('fade-out');
+
+            // Remover a classe fade-out e adicionar fade-in após a transição
+            setTimeout(() => {
+                contentDiv.innerHTML = sections[section];
+                contentDiv.classList.remove('fade-out');
+                contentDiv.classList.add('fade-in');
+            }, 500);
+
+            // Atualizar a classe 'active' nos links de navegação
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                if (link.textContent.toLowerCase() === section) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
         }
     </script>
 </head>
@@ -66,13 +98,13 @@
 </header>
 
 <nav>
-    <a onclick="showContent('home')">Home</a>
+    <a onclick="showContent('home')" class="active">Home</a>
     <a onclick="showContent('sobre')">Sobre</a>
     <a onclick="showContent('servicos')">Serviços</a>
     <a onclick="showContent('contato')">Contato</a>
 </nav>
 
-<div class="content" id="main-content">
+<div class="content fade-in" id="main-content">
     <h2>Home</h2>
     <p>Esta é a seção inicial da homepage.</p>
 </div>
