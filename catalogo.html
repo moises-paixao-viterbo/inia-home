@@ -11,13 +11,95 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             background-color: #f4f4f4;
         }
         .container {
-            background-color: white;
+            max-width: 1200px;
+            margin: 20px auto;
             padding: 20px;
-            border-radius: 5
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .produto {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .produto:hover {
+            background-color: #f9f9f9;
+        }
+        .produto img {
+            max-width: 100px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+        .produto .info {
+            flex: 1;
+        }
+        .produto h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .produto p {
+            margin: 10px 0;
+            color: #666;
+        }
+        .produto .preco {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .produto .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .produto .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="produto">
+        <img src="produto1.jpg" alt="Produto 1">
+        <div class="info">
+            <h3>Produto 1</h3>
+            <p>Descrição breve do Produto 1.</p>
+            <p class="preco">R$ 99,00</p>
+            <a href="analise.html" class="btn">Ver Detalhes</a>
+        </div>
+    </div>
+
+    <div class="produto">
+        <img src="produto2.jpg" alt="Produto 2">
+        <div class="info">
+            <h3>Produto 2</h3>
+            <p>Descrição breve do Produto 2.</p>
+            <p class="preco">R$ 129,00</p>
+            <a href="analise.html" class="btn">Ver Detalhes</a>
+        </div>
+    </div>
+
+    <div class="produto">
+        <img src="produto3.jpg" alt="Produto 3">
+        <div class="info">
+            <h3>Produto 3</h3>
+            <p>Descrição breve do Produto 3.</p>
+            <p class="preco">R$ 79,00</p>
+            <a href="analise.html" class="btn">Ver Detalhes</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
