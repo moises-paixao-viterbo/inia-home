@@ -3,115 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Homepage</title>
+    <title>Cadastro</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-        }
-        nav {
             display: flex;
             justify-content: center;
-            background-color: #333;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
         }
-        nav a {
-            color: white;
-            padding: 14px 20px;
-            text-decoration: none;
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
             text-align: center;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
+            color: #333;
         }
-        nav a:hover {
-            background-color: #ddd;
-            color: black;
+        .form-group {
+            margin-bottom: 15px;
         }
-        nav a.active {
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        .btn {
             background-color: #4CAF50;
             color: white;
-        }
-        .content {
-            padding: 20px;
-            transition: opacity 0.5s;
-        }
-        .content.fade-out {
-            opacity: 0;
-        }
-        .content.fade-in {
-            opacity: 1;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
             width: 100%;
-            bottom: 0;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #45a049;
         }
     </style>
-    <script>
-        function showContent(section) {
-            const sections = {
-                home: '<h2>Home</h2><p>Esta é a seção inicial da homepage.</p>',
-                sobre: '<h2>Sobre</h2><p>Informações sobre o site ou o proprietário.</p>',
-                servicos: '<h2>Serviços</h2><p>Detalhes dos serviços oferecidos.</p>',
-                contato: '<h2>Contato</h2><p>Formas de entrar em contato.</p>'
-            };
-            
-            // Adicionar efeito de fade-out
-            const contentDiv = document.getElementById('main-content');
-            contentDiv.classList.add('fade-out');
-
-            // Remover a classe fade-out e adicionar fade-in após a transição
-            setTimeout(() => {
-                contentDiv.innerHTML = sections[section];
-                contentDiv.classList.remove('fade-out');
-                contentDiv.classList.add('fade-in');
-            }, 500);
-
-            // Atualizar a classe 'active' nos links de navegação
-            const navLinks = document.querySelectorAll('nav a');
-            navLinks.forEach(link => {
-                if (link.textContent.toLowerCase() === section) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-        }
-    </script>
 </head>
 <body>
 
-<header>
-    <h1>Bem-vindo à Minha Homepage</h1>
-    <p>Explorando o mundo da web</p>
-</header>
-
-<nav>
-    <a onclick="showContent('home')" class="active">Home</a>
-    <a onclick="showContent('sobre')">Sobre</a>
-    <a onclick="showContent('servicos')">Serviços</a>
-    <a onclick="showContent('contato')">Contato</a>
-</nav>
-
-<div class="content fade-in" id="main-content">
-    <h2>Home</h2>
-    <p>Esta é a seção inicial da homepage.</p>
+<div class="container">
+    <h2>Cadastro</h2>
+    <form>
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmar-senha">Confirmar Senha</label>
+            <input type="password" id="confirmar-senha" name="confirmar-senha" required>
+        </div>
+        <button type="submit" class="btn">Cadastrar</button>
+    </form>
 </div>
-
-<footer>
-    <p>&copy; 2024 Minha Homepage. Todos os direitos reservados.</p>
-</footer>
 
 </body>
 </html>
