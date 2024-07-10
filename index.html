@@ -3,90 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>Minha Homepage</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        .form-group input:focus {
-            border-color: #4CAF50;
-            outline: none;
-        }
-        .btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-            transition: background-color 0.3s;
-        }
-        .btn:hover {
-            background-color: #45a049;
-        }
+        /* Adicione o estilo diretamente ou importe do arquivo styles.css */
     </style>
+    <script>
+        function showContent(section) {
+            const sections = {
+                home: '<h2>Home</h2><p>Esta é a seção inicial da homepage.</p>',
+                sobre: '<h2>Sobre</h2><p>Informações sobre o site ou o proprietário.</p>',
+                servicos: '<h2>Serviços</h2><p>Detalhes dos serviços oferecidos.</p>',
+                contato: '<h2>Contato</h2><p>Formas de entrar em contato.</p>'
+            };
+            
+            // Adicionar efeito de fade-out
+            const contentDiv = document.getElementById('main-content');
+            contentDiv.classList.add('fade-out');
+
+            // Remover a classe fade-out e adicionar fade-in após a transição
+            setTimeout(() => {
+                contentDiv.innerHTML = sections[section];
+                contentDiv.classList.remove('fade-out');
+                contentDiv.classList.add('fade-in');
+            }, 500);
+
+            // Atualizar a classe 'active' nos links de navegação
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                if (link.textContent.toLowerCase() === section) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 
-<div class="container">
-    <h2>Cadastro</h2>
-    <form>
-        <div class="form-group">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="senha">Senha</label>
-            <input type="password" id="senha" name="senha" required>
-        </div>
-        <div class="form-group">
-            <label for="confirmar-senha">Confirmar Senha</label>
-            <input type="password" id="confirmar-senha" name="confirmar-senha" required>
-        </div>
-        <button type="submit" class="btn">Cadastrar</button>
-    </form>
+<header>
+    <h1>Bem-vindo à Minha Homepage</h1>
+    <p>Explorando o mundo da web</p>
+</header>
+
+<nav>
+    <a onclick="showContent('home')" class="active">Home</a>
+    <a onclick="showContent('sobre')">Sobre</a>
+    <a onclick="showContent('servicos')">Serviços</a>
+    <a onclick="showContent('contato')">Contato</a>
+    <a href="cadastro.html">Cadastro</a>
+</nav>
+
+<div class="content fade-in" id="main-content">
+    <h2>Home</h2>
+    <p>Esta é a seção inicial da homepage.</p>
 </div>
+
+<footer>
+    <p>&copy; 2024 Minha Homepage. Todos os direitos reservados.</p>
+</footer>
 
 </body>
 </html>
