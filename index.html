@@ -27,6 +27,7 @@
             padding: 14px 20px;
             text-decoration: none;
             text-align: center;
+            cursor: pointer;
         }
         nav a:hover {
             background-color: #ddd;
@@ -45,6 +46,17 @@
             bottom: 0;
         }
     </style>
+    <script>
+        function showContent(section) {
+            const sections = {
+                home: '<h2>Home</h2><p>Esta é a seção inicial da homepage.</p>',
+                sobre: '<h2>Sobre</h2><p>Informações sobre o site ou o proprietário.</p>',
+                servicos: '<h2>Serviços</h2><p>Detalhes dos serviços oferecidos.</p>',
+                contato: '<h2>Contato</h2><p>Formas de entrar em contato.</p>'
+            };
+            document.getElementById('main-content').innerHTML = sections[section];
+        }
+    </script>
 </head>
 <body>
 
@@ -54,27 +66,15 @@
 </header>
 
 <nav>
-    <a href="#home">Home</a>
-    <a href="#sobre">Sobre</a>
-    <a href="#servicos">Serviços</a>
-    <a href="#contato">Contato</a>
+    <a onclick="showContent('home')">Home</a>
+    <a onclick="showContent('sobre')">Sobre</a>
+    <a onclick="showContent('servicos')">Serviços</a>
+    <a onclick="showContent('contato')">Contato</a>
 </nav>
 
-<div class="content">
+<div class="content" id="main-content">
     <h2>Home</h2>
     <p>Esta é a seção inicial da homepage.</p>
-    <section id="sobre">
-        <h2>Sobre</h2>
-        <p>Informações sobre o site ou o proprietário.</p>
-    </section>
-    <section id="servicos">
-        <h2>Serviços</h2>
-        <p>Detalhes dos serviços oferecidos.</p>
-    </section>
-    <section id="contato">
-        <h2>Contato</h2>
-        <p>Formas de entrar em contato.</p>
-    </section>
 </div>
 
 <footer>
