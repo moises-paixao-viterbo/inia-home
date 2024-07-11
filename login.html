@@ -57,20 +57,51 @@
             cursor: pointer;
             width: 100%;
             margin-top: 10px;
-            transition: background-color
-            0.3s;
-}
-.btn
-{
-background-color: #45a049;
-}
-</style>
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = {
+                email: formData.get('email'),
+                senha: formData.get('senha')
+            };
 
+            fetch('https://hook.us1.make.com/d8lcfk6cpyccnr68v45zg1gwy1woq7vi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result === "Pass") {
+                    window.location.href = 'catalogo.html';
+                } else if (result === "Invalid Pass") {
+                    document.getElementById('error-message').textContent = 'Senha Inválida';
+                    document.getElementById('senha').value = '';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </head>
 <body>
+
 <div class="container">
     <h2>Login</h2>
-    <form onsubmit="event.preventDefault(); window.location.href='catalogo.html';">
+    <form onsubmit="handleSubmit(event)">
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" required>
@@ -79,8 +110,10 @@ background-color: #45a049;
             <label for="senha">Senha</label>
             <input type="password" id="senha" name="senha" required>
         </div>
-        <button type="submit" class="btn">Login</button>
+        <button type="submit" class="btn">Entrar</button>
+        <div id="error-message" class="error-message"></div>
     </form>
 </div>
+
 </body>
 </html>
