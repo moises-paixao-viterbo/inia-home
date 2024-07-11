@@ -69,6 +69,17 @@
         }
     </style>
     <script>
+        function sendWebhook(data) {
+            return fetch('https://hook.us1.make.com/d8lcfk6cpyccnr68v45zg1gwy1woq7vi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json());
+        }
+
         function handleSubmit(event) {
             event.preventDefault();
             const formData = new FormData(event.target);
@@ -77,18 +88,11 @@
                 senha: formData.get('senha')
             };
 
-            fetch('https://hook.us1.make.com/d8lcfk6cpyccnr68v45zg1gwy1woq7vi', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
+            sendWebhook(data)
             .then(result => {
-                if (result.message === "Pass") {
+                if (result === "Pass") {
                     window.location.href = 'catalogo.html';
-                } else if (result.message === "Invalid Pass") {
+                } else if (result === "Invalid Pass") {
                     document.getElementById('error-message').textContent = 'Senha Inválida';
                     document.getElementById('senha').value = '';
                 }
