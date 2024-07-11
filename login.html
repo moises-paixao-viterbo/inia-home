@@ -86,9 +86,9 @@
             })
             .then(response => response.json())
             .then(result => {
-                if (result === "Pass") {
+                if (result.message === "Pass") {
                     window.location.href = 'catalogo.html';
-                } else if (result === "Invalid Pass") {
+                } else if (result.message === "Invalid Pass") {
                     document.getElementById('error-message').textContent = 'Senha Inválida';
                     document.getElementById('senha').value = '';
                 }
