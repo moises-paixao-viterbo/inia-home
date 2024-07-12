@@ -69,35 +69,41 @@
         }
     </style>
     <script>
-        function sendWebhook(data) {
-            return fetch('https://hook.us1.make.com/d8lcfk6cpyccnr68v45zg1gwy1woq7vi', {
+        async function sendWebhook(data) {
+            const response = await fetch('https://hook.us1.make.com/d8lcfk6cpyccnr68v45zg1gwy1woq7vi', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
-            })
-            .then(response => response.json());
+            });
+
+            const result = await response.json();
+            return { status: response.status, message: result };
         }
 
-        function handleSubmit(event) {
+        async function handleSubmit(event) {
             event.preventDefault();
             const formData = new FormData(event.target);
             const data = {
                 email: formData.get('email'),
-                senha: formData.get('senha')
+                password: formData.get('senha')
             };
 
-            sendWebhook(data)
-            .then(result => {
-                if (result === "Pass") {
+            try {
+                const result = await sendWebhook(data);
+                if (result.status === 200 && result.message === "Pass") {
                     window.location.href = 'catalogo.html';
-                } else if (result === "Invalid Pass") {
+                } else if (result.message === "Invalid Pass") {
                     document.getElementById('error-message').textContent = 'Senha Inválida';
                     document.getElementById('senha').value = '';
+                } else {
+                    document.getElementById('error-message').textContent = 'Erro desconhecido';
                 }
-            })
-            .catch(error => console.error('Error:', error));
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('error-message').textContent = 'Erro na requisição';
+            }
         }
     </script>
 </head>
