@@ -79,12 +79,16 @@
                     body: JSON.stringify(data)
                 });
 
+                if (!response.ok) {
+                    throw new Error('Erro na resposta do servidor');
+                }
+
                 const result = await response.json();
                 console.log('Webhook response:', result); // Log the response for debugging
                 return { status: response.status, message: result };
             } catch (error) {
                 console.error('Error during fetch:', error);
-                throw new Error('Erro na requisição');
+                throw error;
             }
         }
 
@@ -98,21 +102,17 @@
 
             try {
                 const result = await sendWebhook(data);
-                if (result.status === 200) {
-                    if (result.message === "Pass") {
-                        window.location.href = 'catalogo.html';
-                    } else if (result.message === "Invalid Pass") {
-                        document.getElementById('error-message').textContent = 'Senha Inválida';
-                        document.getElementById('senha').value = '';
-                    } else {
-                        document.getElementById('error-message').textContent = 'Erro desconhecido';
-                    }
+                console.log('Result:', result); // Log the result for debugging
+                if (result.status === 200 && result.message === "Pass") {
+                    window.location.href = 'catalogo.html';
+                } else if (result.message === "Invalid Pass") {
+                    document.getElementById('error-message').textContent = 'Senha Inválida';
+                    document.getElementById('senha').value = '';
                 } else {
-                    document.getElementById('error-message').textContent = 'Erro na resposta do servidor';
+                    document.getElementById('error-message').textContent = 'Erro desconhecido';
                 }
             } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('error-message').textContent = error.message;
+                document.getElementById('error-message').textContent = 'Erro na requisição';
             }
         }
     </script>
