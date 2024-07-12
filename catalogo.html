@@ -11,94 +11,106 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             background-color: #f4f4f4;
         }
         .container {
-            max-width: 1200px;
-            margin: 20px auto;
+            background-color: white;
             padding: 20px;
-            background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
         }
-        .produto {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-        .produto:hover {
-            background-color: #f9f9f9;
-        }
-        .produto img {
-            max-width: 100px;
-            height: auto;
-            margin-right: 20px;
-            border-radius: 5px;
-        }
-        .produto .info {
-            flex: 1;
-        }
-        .produto h3 {
-            margin: 0;
-            font-size: 18px;
+        h2 {
             color: #333;
         }
-        .produto p {
-            margin: 10px 0;
-            color: #666;
-        }
-        .produto .preco {
-            font-size: 20px;
-            font-weight: bold;
-            color: #4CAF50;
-        }
-        .produto .btn {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
+        .plan {
+            border: 1px solid #ccc;
             border-radius: 5px;
+            padding: 20px;
+            margin: 10px 0;
+            cursor: pointer;
             transition: background-color 0.3s;
         }
-        .produto .btn:hover {
-            background-color: #45a049;
+        .plan:hover {
+            background-color: #f0f0f0;
         }
     </style>
+    <script>
+        async function sendWebhook(data) {
+            try {
+                const response = await fetch('https://hook.us1.make.com/i4xd029uu2yrg0q2t7s9wknj85ksczl4', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro na resposta do servidor');
+                }
+
+                const result = await response.json();
+                console.log('Webhook response:', result); // Log the response for debugging
+                return { status: response.status, message: result };
+            } catch (error) {
+                console.error('Error during fetch:', error);
+                throw error;
+            }
+        }
+
+        function handlePlanSelection(plan) {
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                console.error('User ID not found in local storage.');
+                return;
+            }
+
+            const data = {
+                id: userId,
+                plan: plan
+            };
+
+            sendWebhook(data)
+                .then(result => {
+                    if (result.status === 200) {
+                        alert('Plano selecionado com sucesso!');
+                    } else {
+                        alert('Erro ao selecionar plano.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Erro na requisição');
+                });
+        }
+
+        function saveUserId(userId) {
+            localStorage.setItem('userId', userId);
+        }
+
+        // Simulação de login para salvar o ID do usuário
+        document.addEventListener('DOMContentLoaded', () => {
+            // Supondo que o ID do usuário seja salvo no momento do login
+            const userId = '12345'; // Exemplo de ID do usuário
+            saveUserId(userId);
+        });
+    </script>
 </head>
 <body>
 
 <div class="container">
-    <div class="produto">
-        <img src="produto1.jpg" alt="Produto 1">
-        <div class="info">
-            <h3>Produto 1</h3>
-            <p>Descrição breve do Produto 1.</p>
-            <p class="preco">R$ 99,00</p>
-            <a href="analise.html" class="btn">Ver Detalhes</a>
-        </div>
-    </div>
-
-    <div class="produto">
-        <img src="produto2.jpg" alt="Produto 2">
-        <div class="info">
-            <h3>Produto 2</h3>
-            <p>Descrição breve do Produto 2.</p>
-            <p class="preco">R$ 129,00</p>
-            <a href="analise.html" class="btn">Ver Detalhes</a>
-        </div>
-    </div>
-
-    <div class="produto">
-        <img src="produto3.jpg" alt="Produto 3">
-        <div class="info">
-            <h3>Produto 3</h3>
-            <p>Descrição breve do Produto 3.</p>
-            <p class="preco">R$ 79,00</p>
-            <a href="analise.html" class="btn">Ver Detalhes</a>
-        </div>
-    </div>
+    <h2>Escolha um Plano</h2>
+    <div class="plan" onclick="handlePlanSelection('Básico')">Básico - R$150</div>
+    <div class="plan" onclick="handlePlanSelection('Pro')">Pro - R$300</div>
+    <div class="plan" onclick="handlePlanSelection('Enterprise')">Enterprise - R$950</div>
 </div>
 
 </body>
